@@ -1,0 +1,4 @@
+settings:
+  jwt-secret: ${JWT_SECRET:caD32efPSWF!Tt4%@f}
+  jwt-expiration: ${JWT_EXPIRATION:604800000}
+  url: ${URL:http://localhost:5000}
