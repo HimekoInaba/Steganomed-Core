@@ -1,0 +1,17 @@
+version: '3.0'
+services:
+
+  steganomed-core:
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - steganomed-db
+
+  steganomed-db:
+    image: postgres:10.6-alpine
+    restart: always
+    ports:
+      - 32281:5432
+    volumes:
+      - .docker-data/db/initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
