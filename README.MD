@@ -3,8 +3,8 @@
 
 ### Application consists from 3 services:
 - Core backend (this project)
-- Encryption service (https://github.com/HimekoInaba/stegano-med-encryption-service)
-- Frontend (https://github.com/HimekoInaba/stegano-med-front)
+- Encryption service (https://github.com/HimekoInaba/Steganomed-Encryption-Service)
+- Frontend (https://github.com/HimekoInaba/Steganomed-Frontend)
 
 ![alt text](images/architecture.png)
 
