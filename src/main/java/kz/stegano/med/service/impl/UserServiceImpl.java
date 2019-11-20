@@ -76,15 +76,6 @@ public class UserServiceImpl implements UserService {
         }
         throw new DefaultException(String.format("user with %s does not exist!", username));
     }
-/*
-    @Override
-    public List<User> getAllUsersByRole(String role) {
-        List<User> userList = userRepository.getAllByRoles(role);
-        if (!StringUtils.isEmpty(userList)) {
-            return userList;
-        }
-        throw new DefaultException(String.format("users with role: %s does not exist!", role));
-    }*/
 
     @Override
     public User getById(Long id) {

@@ -1,5 +1,6 @@
 package kz.stegano.med.configuration;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -20,10 +21,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Autowired
     public void configureGlobal(

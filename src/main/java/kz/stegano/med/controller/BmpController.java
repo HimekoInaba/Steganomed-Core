@@ -26,12 +26,15 @@ public class BmpController {
 
     @PostMapping("/encode")
     public String encode(@RequestParam String message, @RequestBody MultipartFile file) throws IOException {
-        String response = jsonRequestService.sendRequest(jsonRequestService.prepareRequest(new EncryptRequest(file.getBytes(), message)), urlPath + "/encode");
-        return response;
+        return jsonRequestService.sendRequest(
+                jsonRequestService.prepareRequest(new EncryptRequest(file.getBytes(), message)),
+                urlPath + "/encode");
     }
 
     @PostMapping("/decode")
     public String decode(@RequestBody MultipartFile file) throws IOException {
-        return jsonRequestService.sendRequest(jsonRequestService.prepareRequest(file.getBytes()), urlPath + "/decode");
+        return jsonRequestService.sendRequest(
+                jsonRequestService.prepareRequest(file.getBytes()),
+                urlPath + "/decode");
     }
 }

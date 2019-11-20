@@ -38,10 +38,7 @@ public class DocumentController {
                                    @RequestParam Long doctorId,
                                    @RequestParam Long userId,
                                    @RequestBody MultipartFile file) throws IOException {
-        Document document = new Document();
-        document.setUserId(userId);
-        document.setDoctorId(doctorId);
-        document.setName(name);
+        Document document = new Document(userId, doctorId, name);
         String encryptedData = jsonRequestService.sendRequest(
                 jsonRequestService.prepareRequest(new EncryptRequest(file.getBytes(), message)), url + "/encode");
         return documentService.create(encryptedData, document);

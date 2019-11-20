@@ -28,7 +28,7 @@ public class JsonRequestServiceImpl implements JsonRequestService {
             HttpEntity entity = new HttpEntity<>(jsonRequest, headers);
             log.info("Sending data to : " + url);
             try {
-                    response = httpclient.postForObject(url, entity, String.class);
+                response = httpclient.postForObject(url, entity, String.class);
             } catch (RestClientException e) {
                 log.error("Exception occurred while sending request {}", e.getMessage());
             }

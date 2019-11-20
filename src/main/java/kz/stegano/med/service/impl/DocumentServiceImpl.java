@@ -1,61 +1,48 @@
 package kz.stegano.med.service.impl;
 
-import io.jsonwebtoken.lang.Collections;
 import kz.stegano.med.exception.DefaultException;
 import kz.stegano.med.model.Document;
 import kz.stegano.med.model.dto.DocumentDto;
 import kz.stegano.med.repository.DocumentRepository;
 import kz.stegano.med.service.DocumentService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class DocumentServiceImpl implements DocumentService {
-    private DocumentRepository documentRepository;
+    private final DocumentRepository documentRepository;
 
     @Override
-    public Document create(String encryptedData, Document document) throws IOException {
+    public Document create(String encryptedData, Document document) {
         document.setContent(encryptedData.getBytes());
         return documentRepository.save(document);
     }
 
     @Override
     public Document getDocumentById(Long id) {
-        Optional<Document> document = documentRepository.findById(id);
-        if (document.isPresent()) {
-            return document.get();
-        }
-        throw new DefaultException("");
+        return documentRepository.findById(id)
+                .orElseThrow(() -> new DefaultException(String.format("Can't find document by id: %d", id)));
     }
 
     @Override
     public List<DocumentDto> getAllDocuments() {
-        Iterable<Document> iterable = documentRepository.findAll();
-        if (iterable.iterator().hasNext()) {
-            List<DocumentDto> list = new ArrayList<>();
-            iterable.forEach(it -> list.add(mapToDto(it)));
-            return list;
-        }
-        throw new DefaultException("");
+        List<DocumentDto> list = new ArrayList<>();
+        documentRepository.findAll().forEach(document -> list.add(mapToDto(document)));
+        return list;
     }
 
     @Override
     public List<DocumentDto> getDocumentsByUserId(Long userId) {
-        List<Document> documentListOfUser = documentRepository.getAllByUserId(userId);
-        if (!Collections.isEmpty(documentListOfUser)) {
-           return documentListOfUser.stream()
-                    .map(this::mapToDto)
-                    .collect(toList());
-        }
-        throw new DefaultException("");
+        return documentRepository.getAllByUserId(userId)
+                .stream()
+                .map(this::mapToDto)
+                .collect(toList());
     }
 
     private DocumentDto mapToDto(Document document) {
